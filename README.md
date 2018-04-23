@@ -45,3 +45,10 @@
 4. npm install
 5. npm run test
 ```
+
+
+## Running `bluzelle` client end-to-end tests with daemon
+
+Todo: 
+- Add flag specifying WS port
+- Find some way to restart the daemon between tests
