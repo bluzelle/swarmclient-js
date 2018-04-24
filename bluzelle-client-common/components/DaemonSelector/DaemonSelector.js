@@ -46,7 +46,7 @@ export default class DaemonSelector extends Component {
                 <Header/>
                 <div onKeyUp={this.checkEnterKey.bind(this)}>
                     <Panel style={{marginTop: 20}} header={<h3>Choose a Bluzelle node</h3>}>
-                        <div style={{width: 400}}>
+                        <div style={{width: 400, padding: 20}}>
                             <div style={{float: 'right', width: '15%'}}>
                                 <label style={{display: 'block'}}>Port:</label>
                                 <input type="text" tabIndex="2" ref={r => this.port = r} style={{width: '100%'}} defaultValue="8100" />
