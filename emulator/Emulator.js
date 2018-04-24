@@ -36,7 +36,11 @@ module.exports.reset = async function(uuid = defaultUuid) {
     // This wipes all databases
     uuids.clear();
 
+
+    // I don't think we need this line if we're calling setup()
     setup({'db-uuid': uuid});
+
+    
     this.start();
 
     await Promise.all(this.shutdown());

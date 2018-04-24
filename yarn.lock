@@ -1014,15 +1014,13 @@ bluebird@^3.5.1:
 "bluzelle-client-common@file:bluzelle-client-common":
   version "1.0.0"
 
-"bluzelle-client-common@file:bluzelle-client-common/":
-  version "1.0.0"
-
 "bluzelle@file:bluzelle-js":
   version "0.1.2"
   dependencies:
     base64-arraybuffer "^0.1.5"
     buffer "^5.1.0"
     isomorphic-ws "^4.0.0"
+    lodash "^4.17.10"
     websocket "^1.0.25"
     ws "^5.1.1"
 
@@ -3512,6 +3510,10 @@ lodash@^4.0.0, lodash@^4.17.5:
 lodash@^4.13.1, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.4:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
+
+lodash@^4.17.10:
+  version "4.17.10"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
 lolex@^1.6.0:
   version "1.6.0"

@@ -81,9 +81,50 @@ module.exports = {
         }
     },
 
+    create: ({'db-uuid':uuid, request_id, data:{key, value}}, ws) => {
+
+        let data = retrieveDb(uuid);
+
+
+        if(data.has(key)) {
+
+            ws.send(JSON.stringify(
+                {
+                    error: `Key '${key}' already in database.`,
+                    response_to: request_id
+                }
+            ));
+
+            return;
+
+        }
+
+        data.set(key, value);
+
+        ws.send(JSON.stringify(
+            {
+                response_to: request_id
+            }
+        ));
+    },
+
     update: ({'db-uuid':uuid, request_id, data:{key, value}}, ws) => {
 
         let data = retrieveDb(uuid);
+
+
+        if(!data.has(key)) {
+
+            ws.send(JSON.stringify(
+                {
+                    error: `Key '${key}' not in database.`,
+                    response_to: request_id
+                }
+            ));
+
+            return;
+
+        }
 
         data.set(key, value);
 
