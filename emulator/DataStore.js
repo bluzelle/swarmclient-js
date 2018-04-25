@@ -6,7 +6,16 @@ const {defaultUuid} = require('./Emulator');
 
 const uuids = observable.map({});
 const createDb = uuid => uuids.set(uuid, observable.map({}));
-const retrieveDb = uuid => uuids.get(uuid);
+const retrieveDb = uuid => { 
+  
+    if(!uuids.has(uuid)) {
+        createDb(uuid);
+    };
+
+    return uuids.get(uuid);
+
+};
+
 
 const respondSuccess = (uuid, request_id, ws) => {
     if (ws) {
@@ -39,18 +48,6 @@ const respondError = (uuid, request_id, ws) => {
 module.exports = {
 
     uuids,
-
-    setup: ({'db-uuid':uuid, 'request-id': request_id}, ws) => {
-        if (!uuids.has(uuid)) {
-            createDb(uuid);
-
-            respondSuccess(uuid, request_id, ws)
-
-        } else {
-            // respondError(uuid, request_id, ws) // respondSuccess for hackathon purposes
-            respondSuccess(uuid, request_id, ws)
-        }
-    },
 
     read: ({'db-uuid':uuid, 'request-id': request_id, data:{key}}, ws) => {
         let data = retrieveDb(uuid);

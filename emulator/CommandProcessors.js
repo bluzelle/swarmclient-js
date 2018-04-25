@@ -18,7 +18,6 @@ const CommandProcessors = {
         }))
 
     },
-    setup,
     create,
     read,
     update,

@@ -36,11 +36,6 @@ module.exports.reset = async function(uuid = defaultUuid) {
     // This wipes all databases
     uuids.clear();
 
-
-    // I don't think we need this line if we're calling setup()
-    setup({'db-uuid': uuid});
-
-    
     this.start();
 
     await Promise.all(this.shutdown());
@@ -63,7 +58,7 @@ module.exports.reset = async function(uuid = defaultUuid) {
 
 
 
-function start(startPort = 8100, uuid = defaultUuid) {
+function start(startPort = 8100) {
 
     initialStartPort = lastPort = startPort;
     module.exports.wasStarted = true;
@@ -80,8 +75,6 @@ function start(startPort = 8100, uuid = defaultUuid) {
         nodes.size > maxNodes.get() && getRandomNode().shutdown();
         setTimeout(checkNeedLessNodes, 250);
     }());
-
-    setup({'db-uuid': uuid});
 }
 
 
