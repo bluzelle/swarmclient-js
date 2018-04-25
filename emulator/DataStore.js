@@ -13,7 +13,7 @@ const respondSuccess = (uuid, request_id, ws) => {
         ws.send(JSON.stringify(
             {
                 msg: 'setup complete',
-                response_to: request_id
+                'response-to': request_id
             }
         ));
     } else {
@@ -27,7 +27,7 @@ const respondError = (uuid, request_id, ws) => {
         ws.send(JSON.stringify(
             {
                 error: `Sorry, the uuid, ${uuid}, is already taken.`,
-                response_to: request_id
+                'response-to': request_id
             }
         ));
     } else {
@@ -40,7 +40,7 @@ module.exports = {
 
     uuids,
 
-    setup: ({'db-uuid':uuid, request_id}, ws) => {
+    setup: ({'db-uuid':uuid, 'request-id': request_id}, ws) => {
         if (!uuids.has(uuid)) {
             createDb(uuid);
 
@@ -52,7 +52,7 @@ module.exports = {
         }
     },
 
-    read: ({'db-uuid':uuid, request_id, data:{key}}, ws) => {
+    read: ({'db-uuid':uuid, 'request-id': request_id, data:{key}}, ws) => {
         let data = retrieveDb(uuid);
 
         if(data.has(key)) {
@@ -65,7 +65,7 @@ module.exports = {
                             key,
                             value: data.get(key)
                         },
-                    response_to: request_id
+                    'response-to': request_id
                 }
             ));
 
@@ -74,14 +74,14 @@ module.exports = {
             ws.send(JSON.stringify(
                 {
                     error: `Key "${key}" not in database.`,
-                    response_to: request_id
+                    'response-to': request_id
                 }
             ));
 
         }
     },
 
-    create: ({'db-uuid':uuid, request_id, data:{key, value}}, ws) => {
+    create: ({'db-uuid':uuid, 'request-id': request_id, data:{key, value}}, ws) => {
 
         let data = retrieveDb(uuid);
 
@@ -91,7 +91,7 @@ module.exports = {
             ws.send(JSON.stringify(
                 {
                     error: `Key '${key}' already in database.`,
-                    response_to: request_id
+                    'response-to': request_id
                 }
             ));
 
@@ -103,12 +103,12 @@ module.exports = {
 
         ws.send(JSON.stringify(
             {
-                response_to: request_id
+                'response-to': request_id
             }
         ));
     },
 
-    update: ({'db-uuid':uuid, request_id, data:{key, value}}, ws) => {
+    update: ({'db-uuid':uuid, 'request-id': request_id, data:{key, value}}, ws) => {
 
         let data = retrieveDb(uuid);
 
@@ -118,7 +118,7 @@ module.exports = {
             ws.send(JSON.stringify(
                 {
                     error: `Key '${key}' not in database.`,
-                    response_to: request_id
+                    'response-to': request_id
                 }
             ));
 
@@ -130,12 +130,12 @@ module.exports = {
 
         ws.send(JSON.stringify(
             {
-                response_to: request_id
+                'response-to': request_id
             }
         ));
     },
 
-    has: ({'db-uuid':uuid, request_id, data:{key}}, ws) => {
+    has: ({'db-uuid':uuid, 'request-id': request_id, data:{key}}, ws) => {
 
         let data = retrieveDb(uuid);
 
@@ -145,12 +145,12 @@ module.exports = {
                     {
                         value: data.has(key)
                     },
-                response_to: request_id
+                'response-to': request_id
             }
         ));
     },
 
-    'delete': ({'db-uuid':uuid, request_id, data:{key}}, ws) => {
+    'delete': ({'db-uuid':uuid, 'request-id': request_id, data:{key}}, ws) => {
 
         let data = retrieveDb(uuid);
 
@@ -160,7 +160,7 @@ module.exports = {
 
             ws.send(JSON.stringify(
                 {
-                    response_to: request_id
+                    'response-to': request_id
                 }
             ));
 
@@ -169,7 +169,7 @@ module.exports = {
             ws.send(JSON.stringify(
                 {
                     error: `Key "${key}" not in database.`,
-                    response_to: request_id
+                    'response-to': request_id
                 }
             ));
 
@@ -177,7 +177,7 @@ module.exports = {
 
     },
 
-    keys: ({'db-uuid': uuid, request_id}, ws) => {
+    keys: ({'db-uuid': uuid, 'request-id': request_id}, ws) => {
         let data = retrieveDb(uuid);
 
         ws.send(JSON.stringify(
@@ -185,7 +185,7 @@ module.exports = {
                 data: {
                     value: data.keys()
                 },
-                response_to: request_id
+                'response-to': request_id
             }
         ));
 

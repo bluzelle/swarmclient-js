@@ -11,10 +11,10 @@ const CommandProcessors = {
     requestAllNodes: ({data}, connection) =>
         connection.send(JSON.stringify({cmd: 'updateNodes', data: getAllNodesInfo()})),
     
-    ping: ({request_id}, ws) => {
+    ping: ({'request-id': request_id}, ws) => {
 
         ws.send(JSON.stringify({
-            response_to: request_id
+            'response-to': request_id
         }))
 
     },
