@@ -36,6 +36,16 @@
 ```
 
 
+## Starting the emulator
+
+```
+cd swarmclient-js
+npm install
+cd emulator
+node Emulator
+```
+
+
 ## Running `bluzelle` client end-to-end tests with emulator
 
 ```
