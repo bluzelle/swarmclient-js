@@ -24,11 +24,11 @@ module.exports = function Node(port) {
             setTimeout(() => alive = true, _.random(10000, 20000));
         },
         nodeAdded: (node) => {
-            sendToClients('updateNodes', [node]);
+            // sendToClients('updateNodes', [node]);
         },
         shutdown: () => new Promise( (resolve, reject) => {
             nodes.delete(port);
-            sendToClients('removeNodes', [me.address]);
+            // sendToClients('removeNodes', [me.address]);
             me.alive = false;
 
             setTimeout(() => {
@@ -86,7 +86,7 @@ module.exports = function Node(port) {
         me.alive && connection.send(JSON.stringify({cmd: cmd, data: data}));
 
     const sendNodesInfo = (connection) => {
-        me.alive && sendToClient(connection, 'updateNodes', getAllNodesInfo());
+        // me.alive && sendToClient(connection, 'updateNodes', getAllNodesInfo());
     };
 
     nodes.observe(() => {
@@ -114,14 +114,14 @@ module.exports = function Node(port) {
        setTimeout(becomeOrDropLeader, me.isLeader ? _.random(8000, 10000) : _.random(500, 1000));
 
         function sendIsLeaderToClients() {
-           sendToClients('updateNodes', [_.pick(me, 'ip', 'port', 'address', 'isLeader')])
+           // sendToClients('updateNodes', [_.pick(me, 'ip', 'port', 'address', 'isLeader')])
         }
     }());
 
     (function updateStorageUsed(direction = 1) {
         if(behaveRandomly.get()) {
             me.used += direction;
-            sendToClients('updateNodes', [_.pick(me, 'ip', 'port', 'address', 'used', 'available')]);
+            // sendToClients('updateNodes', [_.pick(me, 'ip', 'port', 'address', 'used', 'available')]);
 
             me.used < 40 && (direction = _.random(1, 2));
             me.used > 70 && (direction = _.random(-1, -2));
