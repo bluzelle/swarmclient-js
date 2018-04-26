@@ -31,29 +31,31 @@ module.exports = {
     isRandom: () => behaveRandomly.get()
 };
 
-module.exports.reset = async function(uuid = defaultUuid) {
+module.exports.reset = (uuid = defaultUuid) => new Promise(resolve => {
 
     // This wipes all databases
     uuids.clear();
 
-    this.start();
+    module.exports.start();
 
-    await Promise.all(this.shutdown());
+    Promise.all(module.exports.shutdown()).then(() => {
 
-    this.setMaxNodes(1);
+        module.exports.setMaxNodes(1);
 
-    // This empties a specific database
-    setData(uuid, {});
+        // This empties a specific database
+        setData(uuid, {});
 
-    await new Promise(resolve => (function loop() {
+        (function loop() {
 
-        nodes.keys().length 
-            ? resolve()
-            : setTimeout(loop, 0);
+            nodes.keys().length 
+                ? resolve()
+                : setTimeout(loop, 0);
 
-    })());
+        })();
 
-}.bind(module.exports);
+    });
+
+});
 
 
 
