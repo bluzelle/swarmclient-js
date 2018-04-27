@@ -180,7 +180,7 @@ module.exports = {
         ws.send(JSON.stringify(
             {
                 data: {
-                    value: data.keys()
+                    keys: data.keys()
                 },
                 'request-id': request_id
             }
