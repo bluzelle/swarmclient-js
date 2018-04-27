@@ -22,7 +22,7 @@ const respondSuccess = (uuid, request_id, ws) => {
         ws.send(JSON.stringify(
             {
                 msg: 'setup complete',
-                'response-to': request_id
+                'request-id': request_id
             }
         ));
     } else {
@@ -36,7 +36,7 @@ const respondError = (uuid, request_id, ws) => {
         ws.send(JSON.stringify(
             {
                 error: `Sorry, the uuid, ${uuid}, is already taken.`,
-                'response-to': request_id
+                'request-id': request_id
             }
         ));
     } else {
@@ -62,7 +62,7 @@ module.exports = {
                             key,
                             value: data.get(key)
                         },
-                    'response-to': request_id
+                    'request-id': request_id
                 }
             ));
 
@@ -71,7 +71,7 @@ module.exports = {
             ws.send(JSON.stringify(
                 {
                     error: `Key "${key}" not in database.`,
-                    'response-to': request_id
+                    'request-id': request_id
                 }
             ));
 
@@ -88,7 +88,7 @@ module.exports = {
             ws.send(JSON.stringify(
                 {
                     error: `Key '${key}' already in database.`,
-                    'response-to': request_id
+                    'request-id': request_id
                 }
             ));
 
@@ -100,7 +100,7 @@ module.exports = {
 
         ws.send(JSON.stringify(
             {
-                'response-to': request_id
+                'request-id': request_id
             }
         ));
     },
@@ -115,7 +115,7 @@ module.exports = {
             ws.send(JSON.stringify(
                 {
                     error: `Key '${key}' not in database.`,
-                    'response-to': request_id
+                    'request-id': request_id
                 }
             ));
 
@@ -127,7 +127,7 @@ module.exports = {
 
         ws.send(JSON.stringify(
             {
-                'response-to': request_id
+                'request-id': request_id
             }
         ));
     },
@@ -142,7 +142,7 @@ module.exports = {
                     {
                         'key-exists': data.has(key)
                     },
-                'response-to': request_id
+                'request-id': request_id
             }
         ));
     },
@@ -157,7 +157,7 @@ module.exports = {
 
             ws.send(JSON.stringify(
                 {
-                    'response-to': request_id
+                    'request-id': request_id
                 }
             ));
 
@@ -166,7 +166,7 @@ module.exports = {
             ws.send(JSON.stringify(
                 {
                     error: `Key "${key}" not in database.`,
-                    'response-to': request_id
+                    'request-id': request_id
                 }
             ));
 
@@ -182,7 +182,7 @@ module.exports = {
                 data: {
                     value: data.keys()
                 },
-                'response-to': request_id
+                'request-id': request_id
             }
         ));
 

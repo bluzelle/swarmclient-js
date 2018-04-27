@@ -14,7 +14,7 @@ const CommandProcessors = {
     ping: ({'request-id': request_id}, ws) => {
 
         ws.send(JSON.stringify({
-            'response-to': request_id
+            'request-id': request_id
         }))
 
     },
