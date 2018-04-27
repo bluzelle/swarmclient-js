@@ -63,7 +63,7 @@ const onMessage = (event, socket) => {
 
     if(event.error && event.error === 'NOT_THE_LEADER') {
 
-        const addressAndPort = 'ws://' + event.data['leader-url'] + ':' + event.data['leader-port'];
+        const addressAndPort = 'ws://' + event.data['leader-host'] + ':' + event.data['leader-port'];
 
         connect(addressAndPort, uuid).then(() => {
 

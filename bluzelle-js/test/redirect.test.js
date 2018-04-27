@@ -40,7 +40,7 @@ const assert = require('assert');
 					error: 'NOT_THE_LEADER',
 					data: {
 						"leader-id" : "137a8403-52ec-43b7-8083-91391d4c5e67",
-               			"leader-url":"127.0.0.1",
+               			"leader-host":"127.0.0.1",
                			"leader-port": 8100 // Proper emulator
 					}
 				}));
