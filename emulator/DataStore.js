@@ -140,7 +140,7 @@ module.exports = {
             {
                 data:
                     {
-                        value: data.has(key)
+                        'key-exists': data.has(key)
                     },
                 'response-to': request_id
             }
