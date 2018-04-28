@@ -14,7 +14,8 @@
 4. npm install
 5. npm run dev-compile
 6. cd ../desktop
-7. npm run start
+7. npm install
+8. npm run start
 ```
 
 > Note: any directory containing a `package.json` file is considered an *npm module*. We run `npm install` from that directory to install relevant dependencies.
