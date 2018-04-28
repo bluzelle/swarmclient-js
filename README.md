@@ -2,6 +2,8 @@
 
 1. Install [NodeJS](https://nodejs.org/en/download/package-manager/) - provides desktop JavaScript capabilities and comes bundled with the *Node Package Manager* (npm).
 
+1b. If NodeJS is installed, ensure you are running the latest version.
+
 2. Get our client code (https://github.com/bluzelle/swarmclient-js)
 
 
