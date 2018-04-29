@@ -1,5 +1,4 @@
 const WebSocket = require('isomorphic-ws');
-const assert = require('assert');
 
 const connections = new Set();
 const resolvers = new Map();
@@ -81,8 +80,8 @@ const onMessage = (event, socket) => {
 
 
 
-// const disconnect = () => 
-//     Promise.all(Array.from(connections).map(con => 
+// const disconnect = () =>
+//     Promise.all(Array.from(connections).map(con =>
 //         new Promise(resolve => {
 
 //         con.onclose = () => {
@@ -252,8 +251,8 @@ const update = (key, value) => new Promise((resolve, reject) => {
 
         } else {
 
-            const pollingFunc = () => 
-                new Promise((res, rej) => 
+            const pollingFunc = () =>
+                new Promise((res, rej) =>
                     read(key).then(v => res(v === value), rej));
 
             poll(pollingFunc).then(resolve, reject);
@@ -282,8 +281,8 @@ const create = (key, value) => new Promise((resolve, reject) => {
 
         } else {
 
-            const pollingFunc = () => 
-                new Promise((res, rej) => 
+            const pollingFunc = () =>
+                new Promise((res, rej) =>
                     has(key).then(v => res(v), rej));
 
             poll(pollingFunc).then(resolve, reject);
@@ -314,8 +313,8 @@ const remove = key => new Promise((resolve, reject) => {
 
         } else {
 
-            const pollingFunc = () => 
-                new Promise((res, rej) => 
+            const pollingFunc = () =>
+                new Promise((res, rej) =>
                     has(key).then(v => res(!v), rej));
 
             poll(pollingFunc).then(resolve, reject);
