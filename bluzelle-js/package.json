@@ -16,7 +16,6 @@
   "author": "Monty Thibault, John Lam",
   "license": "ISC",
   "dependencies": {
-    "assert": "^1.4.1",
     "base64-arraybuffer": "^0.1.5",
     "buffer": "^5.1.0",
     "isomorphic-ws": "^4.0.0",
