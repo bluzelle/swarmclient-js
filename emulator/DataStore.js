@@ -3,11 +3,46 @@ const {forEach} = require('lodash');
 const {nodes} = require('./NodeStore');
 const {defaultUuid} = require('./Emulator');
 
+const sizes = new Map();
+
+const calcSize = str => str.length * 2;
+
+const updateSize = (uuid, data, key, value) => {
+
+    let size = sizes.get(uuid);
+
+    if (sizes.has(uuid) && data.has(key)) {
+
+        let oldValue = data.get(key);
+
+        sizes.set(uuid, size - calcSize(oldValue) + calcSize(value))
+
+    } else if (sizes.has(uuid)){
+
+        sizes.set(uuid, size + calcSize(value))
+
+    } else {
+
+        sizes.set(uuid, calcSize(value))
+    }
+
+};
+
+const removeSize = (uuid, data, key) => {
+
+    let value = data.get(key);
+    let size = sizes.get(uuid);
+
+    sizes.set(uuid, size - calcSize(JSON.stringify(value)));
+
+};
 
 const uuids = observable.map({});
 const createDb = uuid => uuids.set(uuid, observable.map({}));
-const retrieveDb = uuid => { 
-  
+
+
+const retrieveDb = uuid => {
+
     if(!uuids.has(uuid)) {
         createDb(uuid);
     };
@@ -48,6 +83,8 @@ const respondError = (uuid, request_id, ws) => {
 module.exports = {
 
     uuids,
+
+    sizes,
 
     read: ({'db-uuid':uuid, 'request-id': request_id, data:{key}}, ws) => {
         let data = retrieveDb(uuid);
@@ -96,6 +133,8 @@ module.exports = {
 
         }
 
+        updateSize(uuid, data, key, JSON.stringify(value));
+
         data.set(key, value);
 
         ws.send(JSON.stringify(
@@ -122,6 +161,8 @@ module.exports = {
             return;
 
         }
+
+        updateSize(uuid, data, key, value);
 
         data.set(key, value);
 
@@ -152,6 +193,8 @@ module.exports = {
         let data = retrieveDb(uuid);
 
         if(data.has(key)) {
+
+            removeSize(uuid, data, key);
 
             data.delete(key);
 
@@ -185,6 +228,19 @@ module.exports = {
                 'request-id': request_id
             }
         ));
+
+    },
+
+    size: ({'db-uuid': uuid, 'request-id': request_id}, ws) => {
+
+        ws.send(JSON.stringify(
+            {
+                data: {
+                    size: sizes.get(uuid) ? sizes.get(uuid) : 0
+                },
+                'request-id': request_id
+            }
+        ))
 
     },
 
