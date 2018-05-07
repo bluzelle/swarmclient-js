@@ -1,5 +1,5 @@
 const {maxNodes} = require('./Values');
-const {create, read, update, delete:delet, has, setup, keys} = require('./DataStore');
+const {create, read, update, delete:delet, has, keys, size} = require('./DataStore');
 const {getAllNodesInfo} = require('./NodeStore.js');
 const assert = require('assert');
 
@@ -23,7 +23,8 @@ const CommandProcessors = {
     update,
     'delete': delet,
     has,
-    keys
+    keys,
+    size
 
 };
 

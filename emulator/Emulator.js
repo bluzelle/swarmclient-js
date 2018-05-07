@@ -4,7 +4,7 @@ const Node = require('./Node');
 const fp = require('lodash/fp');
 const {maxNodes, behaveRandomly} = require('./Values');
 const CommandProcessors = require('./CommandProcessors');
-const {getData, setData, setup, uuids} = require('./DataStore.js');
+const {getData, setData, uuids, sizes} = require('./DataStore.js');
 
 require.main === module && setTimeout(start);
 

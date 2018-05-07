@@ -6,8 +6,10 @@ const {defaultUuid} = require('./Emulator');
 
 const uuids = observable.map({});
 const createDb = uuid => uuids.set(uuid, observable.map({}));
-const retrieveDb = uuid => { 
-  
+
+
+const retrieveDb = uuid => {
+
     if(!uuids.has(uuid)) {
         createDb(uuid);
     };
@@ -50,7 +52,8 @@ module.exports = {
     uuids,
 
     read: ({'db-uuid':uuid, 'request-id': request_id, data:{key}}, ws) => {
-        let data = retrieveDb(uuid);
+
+        const data = retrieveDb(uuid);
 
         if(data.has(key)) {
 
@@ -80,7 +83,7 @@ module.exports = {
 
     create: ({'db-uuid':uuid, 'request-id': request_id, data:{key, value}}, ws) => {
 
-        let data = retrieveDb(uuid);
+        const data = retrieveDb(uuid);
 
 
         if(data.has(key)) {
@@ -107,7 +110,7 @@ module.exports = {
 
     update: ({'db-uuid':uuid, 'request-id': request_id, data:{key, value}}, ws) => {
 
-        let data = retrieveDb(uuid);
+        const data = retrieveDb(uuid);
 
 
         if(!data.has(key)) {
@@ -134,7 +137,7 @@ module.exports = {
 
     has: ({'db-uuid':uuid, 'request-id': request_id, data:{key}}, ws) => {
 
-        let data = retrieveDb(uuid);
+        const data = retrieveDb(uuid);
 
         ws.send(JSON.stringify(
             {
@@ -149,7 +152,7 @@ module.exports = {
 
     'delete': ({'db-uuid':uuid, 'request-id': request_id, data:{key}}, ws) => {
 
-        let data = retrieveDb(uuid);
+        const data = retrieveDb(uuid);
 
         if(data.has(key)) {
 
@@ -175,7 +178,8 @@ module.exports = {
     },
 
     keys: ({'db-uuid': uuid, 'request-id': request_id}, ws) => {
-        let data = retrieveDb(uuid);
+        
+        const data = retrieveDb(uuid);
 
         ws.send(JSON.stringify(
             {
@@ -188,11 +192,30 @@ module.exports = {
 
     },
 
+    size: ({'db-uuid': uuid, 'request-id': request_id}, ws) => {
+
+        const data = retrieveDb(uuid);
+
+        let accumulator = 0;
+
+        data.forEach((value) => accumulator += value.length * 2);
+
+        ws.send(JSON.stringify(
+            {
+                data: {
+                    size: accumulator
+                },
+                'request-id': request_id
+            }
+        ));
+
+    },
+
     getData: (uuid = defaultUuid) =>
         retrieveDb(uuid),
 
     setData: (uuid = defaultUuid, obj) => {
-        let data = retrieveDb(uuid);
+        const data = retrieveDb(uuid);
         data.clear();
         data.merge(obj);
     }

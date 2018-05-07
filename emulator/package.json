@@ -1,3 +1,7 @@
 {
-  "dependencies": {}
+  "dependencies": {
+    "lodash": "^4.17.10",
+    "mobx": "3.5.1",
+    "websocket": "^1.0.26"
+  }
 }
