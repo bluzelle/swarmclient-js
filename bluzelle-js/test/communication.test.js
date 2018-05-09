@@ -102,4 +102,42 @@ describe('bluzelle connection', () => {
 
     });
 
+    it('should return size 0 when creating and removing', async () => {
+
+        await communication.create('myKey', 123);
+        assert((await communication.size()) >= 0);
+
+        await communication.remove('myKey');
+        assert((await communication.size()) === 0);
+
+    });
+
+    it('should return size 0 when adding a key, updating, then removing', async () => {
+
+        await communication.create('myKey', 123);
+        await communication.update('myKey', 123567);
+        assert((await communication.size()) >= 0);
+
+        await communication.remove('myKey');
+        assert((await communication.size()) === 0);
+
+    });
+
+    it('should return size 0 when db is empty', async () => {
+
+        assert((await communication.size()) === 0);
+
+    });
+
+    it('should change size when value is updated', async () => {
+
+        await communication.create('myKey', 123);
+        let sizeBefore = await communication.size();
+
+        await communication.update('myKey', 123567);
+        let sizeAfter = await communication.size();
+
+        assert(sizeBefore !== sizeAfter);
+    });
+
 });
